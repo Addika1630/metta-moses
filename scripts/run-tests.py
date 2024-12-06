@@ -45,7 +45,7 @@ def print_ascii_art(text):
 metta_run_command = "metta-run"
 
 root = pathlib.Path("../")
-testMettaFiles = root.rglob("test-one*.metta")
+testMettaFiles = root.rglob("*test.metta")
 total_files = 0
 results = []
 fails = 0
