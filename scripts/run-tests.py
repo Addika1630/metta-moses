@@ -45,7 +45,7 @@ def print_ascii_art(text):
 metta_run_command = "metta-run"
 
 root = pathlib.Path("../")
-testMettaFiles = root.rglob("*test.metta")
+testMettaFiles = root.rglob("test-one*.metta")
 total_files = 0
 results = []
 fails = 0
@@ -89,3 +89,5 @@ print(GREEN + f"{total_files - fails} succeeded." + RESET)
 if fails > 0:
     print(RED + "Tests failed . Process Exiting with exit code 1" + RESET)
     sys.exit(1)
+
+

@@ -6,26 +6,26 @@
 ;; Test for getGuardSetExp
 
 ;; Test 01 - getGuardSet of an empty set
-! (assertEqualToResult (getGuardSetExp () () ()) (()))
+! (assertEqualToResult (getGuardSetExp ()) (()))
 
 ;; Test 02 - getGuardSet of a literal
-! (assertEqualToResult (getGuardSetExp A A ()) ((A)))
-! (assertEqualToResult (getGuardSetExp (A) (A) ()) ((A)))
+! (assertEqualToResult (getGuardSetExp A) ((A)))
+! (assertEqualToResult (getGuardSetExp (A)) ((A)))
 
 ;; Test 02 - getGuardSet of OR and NOT expressions
-! (assertEqualToResult (getGuardSetExp (OR) (OR) ()) (()))
-! (assertEqualToResult (getGuardSetExp (OR A B (NOT A)) (OR A B (NOT A)) ()) (()))
-! (assertEqualToResult (getGuardSetExp (OR (AND A B) (AND A B) (NOT A)) (OR (AND A B) (AND A B) (NOT A)) ()) (()))
+! (assertEqualToResult (getGuardSetExp (OR)) (()))
+! (assertEqualToResult (getGuardSetExp (OR A B (NOT A))) (()))
+! (assertEqualToResult (getGuardSetExp (OR (AND A B) (AND A B) (NOT A))) (()))
 
 ;; Test 03 - getGuardSet of AND expressions
-! (assertEqualToResult (getGuardSetExp (AND) (AND) ()) (()))
-! (assertEqualToResult (getGuardSetExp (AND A) (AND A) ()) ((A)))
-! (assertEqualToResult (getGuardSetExp (AND (NOT A) (NOT B) A) (AND (NOT A) (NOT B) A) ()) ((A (NOT B) (NOT A))))
-! (assertEqualToResult (getGuardSetExp (AND A (AND A B) (OR A B) (NOT B)) (AND A (AND A B) (OR A B) (NOT B)) ()) (((NOT B) A)))
-! (assertEqualToResult (getGuardSetExp (AND (AND A B) A) (AND (AND A B) A) ()) ((A)))
-! (assertEqualToResult (getGuardSetExp (AND A B (NOT B)) (AND A B (NOT B)) ()) (((NOT B) B A)))
-! (assertEqualToResult (getGuardSetExp (AND A (NOT A) (NOT B)) (AND A (NOT A) (NOT B)) ()) (((NOT B) (NOT A) A)))
-! (assertEqualToResult (getGuardSetExp (AND (NOT A) A B) (AND (NOT A) A B) ()) ((B A (NOT A))))
+! (assertEqualToResult (getGuardSetExp (AND)) (()))
+! (assertEqualToResult (getGuardSetExp (AND A) ) ((A)))
+! (assertEqualToResult (getGuardSetExp (AND (NOT A) (NOT B) A)) ((A (NOT B) (NOT A))))
+! (assertEqualToResult (getGuardSetExp (AND A (AND A B) (OR A B) (NOT B))) (((NOT B) A)))
+! (assertEqualToResult (getGuardSetExp (AND (AND A B) A)) ((A)))
+! (assertEqualToResult (getGuardSetExp (AND A B (NOT B))) (((NOT B) B A)))
+! (assertEqualToResult (getGuardSetExp (AND A (NOT A) (NOT B))) (((NOT B) (NOT A) A)))
+! (assertEqualToResult (getGuardSetExp (AND (NOT A) A B)) ((B A (NOT A))))
 
 ;; Test for isConsistentExp
  ! (assertEqualToResult (isConsistentExp ()) (True))
