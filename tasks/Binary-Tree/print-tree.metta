@@ -1,14 +1,17 @@
-; Specific case: If the tree consists of a single node with no children, 
+;; This code defines a recursive function `print-tree` that traverses and prints
+;; the nodes of a binary tree. The function first prints the root node and then 
+;; recursively prints the left and right subtrees. 
+;; It works for a binary tree with arbitrary depth and structure.
+;; The example given prints the structure of a binary tree in a pre-order traversal.
+
 (= (print-tree (Tree $x ())) (println! $x)) 
 
-; Recursive case: For trees with left and right subtrees, print the current node 
 (= (print-tree (Tree  $x $left $right)) 
    (do 
       (println! $x) 
       (print-tree $left)  
       (print-tree $right))) 
 
-;; This call will print the binary tree structure rooted at A.
 ! (print-tree (Tree A (Tree B (Tree D ()) (Tree  E (Tree  H ()) (Tree  I ()))) (Tree  C (Tree  F ()) (Tree  G ()))))
 
 
