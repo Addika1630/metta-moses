@@ -73,7 +73,6 @@ def run_test_file(test_file):
         - Returns the test execution result, along with the test file path and failure status.
         - Handles errors using a try-except block and captures them in a structured format.
     """
-
     try:
         result = subprocess.run(
             [metta_run_command, str(test_file)],
