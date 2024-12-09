@@ -16,12 +16,28 @@ MAGENTA = "\033[95m"
 
 
 def extract_and_print(result, path, idx) -> bool:
+    """
+    Extracts the output from the test execution result and prints the status.
+
+    Parameters:
+        result (subprocess.CompletedProcess): The result of the subprocess call.
+        path (pathlib.Path): The path to the test file being executed.
+        idx (int): The index of the test in the sequence.
+
+    Returns:
+        bool: True if the test failed (output contains "Error"), False otherwise.
+
+    This function:
+        - Extracts the output from the result's stdout or stderr.
+        - Checks for the presence of the word "Error" to determine failure.
+        - Prints the test result in a color-coded format:
+            - Green for success.
+            - Red for failure.
+        - Displays the test's exit code and a separator line for readability.
+    """
+
     output = result.stdout if result.returncode == 0 else result.stderr
-    # extracted = output.replace("[()]\n", "")
-    # extracted = re.sub(r"^(?:[()]\n)+", "", output)
-
-    extracted = output
-
+    extracted = output.replace("[()]\n", "")
 
     has_failure = "Error" in extracted
 
@@ -39,8 +55,25 @@ def extract_and_print(result, path, idx) -> bool:
 
 def run_test_file(test_file):
     """
-    Runs the test file using `metta-run` and returns the result.
+    Runs a single test file using the `metta-run` command.
+
+    Parameters:
+        test_file (pathlib.Path): The path to the test file to be executed.
+
+    Returns:
+        tuple:
+            - result (subprocess.CompletedProcess | subprocess.CalledProcessError): 
+              The result of the test execution.
+            - test_file (pathlib.Path): The path to the test file.
+            - has_failure (bool): True if the test failed due to a `CalledProcessError`.
+
+    This function:
+        - Invokes the `metta-run` command with the test file as an argument.
+        - Captures both stdout and stderr for the command execution.
+        - Returns the test execution result, along with the test file path and failure status.
+        - Handles errors using a try-except block and captures them in a structured format.
     """
+
     try:
         result = subprocess.run(
             [metta_run_command, str(test_file)],
