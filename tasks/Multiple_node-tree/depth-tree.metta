@@ -1,10 +1,15 @@
-; Base case: Empty tree has depth 0
+;; This code defines a recursive function `tree-depth` to calculate the maximum depth of a tree.
+;; It handles trees with varying numbers of branches:
+;; - Base case: An empty tree has a depth of 0.
+;; - For a tree with a single branch (left), the depth is 1 plus the depth of the left subtree.
+;; - For a tree with two branches (left and right), the depth is 1 plus the maximum of the depths of the left and right subtrees.
+;; - For a tree with three branches (left, middle1, middle2, right), the depth is 1 plus the maximum depth of all four subtrees.
+
+
 (= (tree-depth ()) 0)  
 
-; Case: Single node tree has depth 1
 (= (tree-depth (Tree $x $xs)) (+ 1 (tree-depth $xs))) 
 
-; Case: Binary tree (left and right subtrees)
 (= (tree-depth (Tree $x $left $right))
     (let $left-depth (tree-depth $left) 
         (let $right-depth (tree-depth $right)  
@@ -12,7 +17,6 @@
                      $left-depth
                      $right-depth)))))  
 
-; Case: Ternary tree (left, middle1, middle2, right)
 (= (tree-depth (Tree $x $left $middle1 $middle2 $right))
     (let $left-depth (tree-depth $left)
         (let $middle1-depth (tree-depth $middle1)
@@ -34,5 +38,6 @@
                                       $middle2-depth
                                       $right-depth)))))))))
 
-; Test case: Multiple node tree
 ! (tree-depth (Tree A (Tree B (Tree F ()) (Tree G (Tree H ()))) (Tree C ()) (Tree D ()) (Tree E ())))
+
+
