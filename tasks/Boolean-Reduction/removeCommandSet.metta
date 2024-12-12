@@ -32,11 +32,11 @@
                 ($head (car-atom $tuple))
                 ($tail (cdr-atom $tuple))
             )
-        (
-            if (== $x $head) True (isMember $x $tail)
+            (
+                if (== $x $head) True (isMember $x $tail)
+            )
         )
-)
-)
+    )
 )
 
 ! (removeCommandSet (AND a b (NOT a) c (OR a b)) (a b))
